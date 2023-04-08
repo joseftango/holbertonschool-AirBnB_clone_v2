@@ -115,16 +115,25 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, args):
         """ Create an object of any class"""
-        if not args:
+        list_args = args.split()
+
+        if len(list_args) == 0:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+        elif list_args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+
+        new_instance = HBNBCommand.classes[f'{list_args[0]}']()
+        if len(list_args) > 1:
+            for kwords in list_args[1:]:
+                my_map = kwords.split("=")
+
+                if hasattr(new_instance, my_map[0]):
+                    setattr(new_instance, my_map[0], eval(
+                        my_map[1].replace("_", " ")))
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -206,12 +215,16 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
+                    if hasattr(v, '_sa_instance_state'):
+                        del v._sa_instance_state
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            for k, v in storage.all().items():
+                    if hasattr(v, '_sa_instance_state'):
+                        del v._sa_instance_state
+                    print_list.append(str(v))
 
         print(print_list)
 
