@@ -8,9 +8,8 @@ from os import getenv
 
 class Amenity(BaseModel, Base):
     """class named Amenity"""
+    __tablename__ = "amenities"
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        __tablename__ = "amenities"
         name = Column("name", String(128), nullable=False)
-        place_amenities = relationship()
     else:
         name = ""

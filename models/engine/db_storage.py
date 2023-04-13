@@ -3,13 +3,13 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session, scoped_session
 from models.base_model import Base
-from os import getenv
 from models.amenity import Amenity
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
+from os import getenv
 
 
 class DBStorage:
@@ -33,7 +33,7 @@ getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
 		self.__session = Session(self.__engine)
 		query = []
 		if cls:
-			query = self.__session.query(eval(cls).all())
+			query = self.__session.query(cls).all()
 		else:
 			objs = [State, City, User, Place, Review]
 			for o in objs:
@@ -66,3 +66,7 @@ getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
 		Base.metadata.create_all(self.__engine)
 		s = sessionmaker(bind=self.__engine, expire_on_commit=False)
 		self.__session = scoped_session(s)
+
+	def close(self):
+		"""method that close the session"""
+		self.__session.close()

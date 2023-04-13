@@ -10,8 +10,8 @@ from models.review import Review
 
 class Place(BaseModel, Base):
 	""" A place to stay """
+	__tablename__ = "places"
 	if getenv('HBNB_TYPE_STORAGE') == 'db':
-		__tablename__ = "places"
 		city_id = Column("city_id", String(60), ForeignKey('cities.id') , nullable=False)
 		user_id = Column("user_id", String(60), ForeignKey('users.id'), nullable=False)
 		name = Column("name", String(128), nullable=False)
