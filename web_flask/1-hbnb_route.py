@@ -10,10 +10,11 @@ def display_1():
     """function that display text in page"""
     return "Hello HBNB!"
 
+
 @app.route("/hbnb", strict_slashes=False)
 def display_2():
-	"""function that display text in page"""
-	return "HBNB"
+    """function that display text in page"""
+    return "HBNB"
 
 
 if __name__ == '__main__':
