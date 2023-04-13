@@ -1,4 +1,4 @@
-#!/bin/usr/python3
+#!/usr/bin/python3
 """module named 1-hbnb_route"""
 from flask import Flask
 
