@@ -6,6 +6,7 @@ from models import storage, state
 
 app = Flask(__name__)
 
+
 @app.route("/states_list", strict_slashes=False)
 def display_template():
     """displays a template with a fetched
