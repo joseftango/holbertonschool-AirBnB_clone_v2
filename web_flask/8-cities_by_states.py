@@ -19,5 +19,11 @@ def display_template():
                            title="States", states=state_list, cities=city_list)
 
 
+@app.teardown_appcontext
+def close_sqlalchemy_sess(exception):
+    """remove SQLAlchemy Session"""
+    storage.close()
+
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
