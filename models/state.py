@@ -16,12 +16,13 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state", cascade="all, delete")
     else:
         name = ""
+
         @property
         def cities(self):
-            """getter method that returns
-            list of City instances"""
-            cities = []
-            for c in models.storage.all(City).values():
-                if self.id == c.state_id:
-                    cities.append(c)
-            return cities
+            """Returns all cities that have the same id as
+            self.id (State id)"""
+            my_cities = list()
+            for city in models.storage.all(City).values():
+                if self.id == city.state_id:
+                    my_cities.append(city)
+            return my_cities
