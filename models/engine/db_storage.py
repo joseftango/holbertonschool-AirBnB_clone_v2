@@ -16,13 +16,13 @@ class DBStorage:
     __engine = None
     __session = None
 
-
     def __init__(self):
         """constractor method"""
 
         self.__engine = create_engine('mysql+mysqlconnector://{}:{}\
-@{}:3306/{}'.format(getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),\
-getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')), pool_pre_ping=True)
+@{}:3306/{}'.format(getenv('HBNB_MYSQL_USER'), getenv('HBNB_MYSQL_PWD'),
+                    getenv('HBNB_MYSQL_HOST'), getenv('HBNB_MYSQL_DB')),
+                         pool_pre_ping=True)
 
         if getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
