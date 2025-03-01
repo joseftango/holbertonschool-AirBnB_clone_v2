@@ -3,13 +3,14 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-from models.__init__ import storage
 from models.user import User
 from models.place import Place
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.review import Review
+from models import storage
+from os import getenv, environ
 
 
 class HBNBCommand(cmd.Cmd):
@@ -124,7 +125,7 @@ class HBNBCommand(cmd.Cmd):
             return
         elif len(vars) == 1 and vars[0] in HBNBCommand.classes:
             new_instance = HBNBCommand.classes[vars[0]]()
-            storage.save()
+            new_instance.save()
             print(new_instance.id)
         elif len(vars) > 1 and vars[0] in HBNBCommand.classes:
             obj = HBNBCommand.classes[vars[0]]()
@@ -141,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 setattr(obj, key, value)
 
-            storage.save()
+            obj.save()
             print(obj.id)
         else:
             return None
@@ -226,11 +227,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
