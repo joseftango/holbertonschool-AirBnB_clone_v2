@@ -2,11 +2,18 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from models.review import Review
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from models.amenity import Amenity
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from sqlalchemy.orm import relationship
 from os import getenv
 import models
 
+
+place_amenity = Table(
+    'place_amenity', Base.metadata,
+    Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
+)
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -27,6 +34,8 @@ class Place(BaseModel, Base):
         reviews = relationship('Review',
                                back_populates="place",
                                cascade="all, delete")
+        amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
+
     else:
         city_id = ""
         user_id = ""
@@ -52,3 +61,18 @@ class Place(BaseModel, Base):
                     matched_reviews.append(v)
 
             return matched_reviews
+
+        @property
+        def amenities(self):
+            """Getter for amenities in FileStorage mode."""
+            amenity_list = []
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    amenity_list.append(amenity)
+            return amenity_list
+
+        @amenities.setter
+        def amenities(self, obj):
+            """Setter for amenities in FileStorage mode."""
+            if isinstance(obj, Amenity):
+                self.amenity_ids.append(obj.id)
