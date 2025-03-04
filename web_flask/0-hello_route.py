@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def hello_HBNB():
+def index():
     '''displays the returned text'''
     return "Hello HBNB"
 
