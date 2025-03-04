@@ -12,8 +12,8 @@ def greed():
     return "Hello HBNB!"
 
 
-@app.route("/HBNB", strict_slashes=False)
-def HBNB():
+@app.route("/hbnb", strict_slashes=False)
+def hbnb():
     '''displays "HBNB"'''
     return "HBNB"
 
