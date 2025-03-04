@@ -7,16 +7,16 @@ app = Flask(__name__)
 
 
 @app.route("/", strict_slashes=False)
-def first_greed():
-    '''displays the returned text'''
+def greed():
+    '''displays "Hello HBNB!"'''
     return "Hello HBNB!"
 
 
 @app.route("/HBNB", strict_slashes=False)
-def second_greed():
-    '''displays the returned text'''
-    return "Hello HBNB"
+def HBNB():
+    '''displays "HBNB"'''
+    return "HBNB"
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000)
