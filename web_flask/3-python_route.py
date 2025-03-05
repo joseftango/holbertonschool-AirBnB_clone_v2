@@ -32,7 +32,7 @@ def display_python(text='is cool'):
     '''display the character "python" followed
     by space and argument'''
     spaced_text = text.replace('_', ' ')
-    return f"python {spaced_text}"
+    return "python {}".format(spaced_text)
 
 
 if __name__ == '__main__':
