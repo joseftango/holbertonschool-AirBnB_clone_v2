@@ -35,11 +35,10 @@ def display_python(text):
     return f"Python {spaced_text}"
 
 
-@app.route("/number/<n>", strict_slashes=False)
+@app.route("/number/<int:n>", strict_slashes=False)
 def display_number(n):
-    '''display the number n if it's an integer'''
-    coneverted_num = int(n)
-    return f'{coneverted_num} is a number'
+    '''display the number n only if it's an integer'''
+    return f'{n} is a number'
 
 
 if __name__ == '__main__':
