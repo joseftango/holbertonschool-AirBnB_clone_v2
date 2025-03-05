@@ -24,10 +24,10 @@ class State(BaseModel, Base):
             '''returns the list of City instances with
             state_id equals to the current State.id'''
             all_cities = models.storage.all(City)
-            matches_cities = []
+            matched_cities = []
 
             for v in all_cities.values():
                 if self.id == v.state_id:
-                    matches_cities.append(v)
+                    matched_cities.append(v)
 
-            return matches_cities
+            return matched_cities
