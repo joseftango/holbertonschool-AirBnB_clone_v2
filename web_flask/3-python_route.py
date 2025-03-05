@@ -28,7 +28,7 @@ def display_c(text):
 
 @app.route('/python/', defaults={'text': 'is cool'}, strict_slashes=False)
 @app.route("/python/<text>", strict_slashes=False)
-def display_python(text='is cool'):
+def display_python(text):
     '''display the character "python" followed
     by space and argument'''
     spaced_text = text.replace('_', ' ')
