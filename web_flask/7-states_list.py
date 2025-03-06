@@ -13,8 +13,7 @@ def states_list():
     '''display the every state and
     the linked cities from DB'''
     states = storage.all(State).values()
-    sorted_states = sorted(states, key=lambda state: state.name)
-    return render_template('7-states_list.html', states=sorted_states)
+    return render_template('7-states_list.html', states=states)
 
 
 @app.teardown_appcontext
